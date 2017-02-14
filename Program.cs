@@ -62,6 +62,11 @@ namespace CoreEF1
                     .Where(p => p.Title.Length > 2)
                     .Select(p => new { p.PostId, p.Blog.Url });
                 Console.WriteLine("q2: {0}", q2.ToSql());
+
+                foreach(var x in q2)
+                {
+                    Console.WriteLine($"{x.PostId} {x.Url}");
+                }
             }
 
             Console.WriteLine("Done.");
