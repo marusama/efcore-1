@@ -15,19 +15,30 @@ namespace CoreEF1
         {
             Console.WriteLine("Hello, world!");
 
-            //using (var db = new BloggingContext())
-            //{
-            //    db.Blogs.Add(new Blog { Url = "http://blogs.msdn.com/adonet" });
-            //    var count = db.SaveChanges();
-            //    Console.WriteLine("{0} records saved to database", count);
+            using (var db = new BloggingContext())
+            {
+                if (db.Blogs.Count() == 0)
+                {
+                    db.Blogs.Add(new Blog { Url = "www.google.com" });
+                    db.Blogs.Add(new Blog { Url = "www.yandex.ru" });
+                    var count = db.SaveChanges();
+                    Console.WriteLine("{0} records saved to database", count);
+                }
 
-            //    Console.WriteLine();
-            //    Console.WriteLine("All blogs in database:");
-            //    foreach (var blog in db.Blogs)
-            //    {
-            //        Console.WriteLine(" - {0}", blog.Url);
-            //    }
-            //}
+                var b1 = db.Blogs.Include(b => b.Posts).Single(b => b.Url == "www.google.com");
+                if (b1.Posts.Count() == 0)
+                {
+                    b1.Posts.Add(new Post() { Title = "post 1", Content = "qwe asd zxc" });
+                    db.SaveChanges();
+                }
+
+                Console.WriteLine();
+                Console.WriteLine("All blogs in database:");
+                foreach (var b in db.Blogs.Include(b => b.Posts))
+                {
+                    Console.WriteLine($"{b.BlogId}: {b.Url} - {string.Join(",", b.Posts.Select(p => p.Title))}");
+                }
+            }
 
             using (var db = new BloggingContext())
             {
@@ -37,7 +48,6 @@ namespace CoreEF1
 
                 foreach (var b in db.Blogs.Include(b => b.Posts))
                 {
-                    //b.Posts.Add(new Post() { Title = "qwe", Content = "test" });
                     Console.WriteLine($"{b.BlogId} - {string.Join(",", b.Posts.Select(p => p.Title))}");
                 }
 
@@ -45,15 +55,16 @@ namespace CoreEF1
                     .Include(b => b.Posts)
                     .Where(b => b.Url != null)
                     .Select(b => new { b.BlogId });
+                Console.WriteLine("q1: {0}", q1.ToSql());
 
                 var q2 = db.Posts
                     .Include(p => p.Blog)
                     .Where(p => p.Title.Length > 2)
                     .Select(p => new { p.PostId, p.Blog.Url });
-
-                //db.SaveChanges();
+                Console.WriteLine("q2: {0}", q2.ToSql());
             }
 
+            Console.WriteLine("Done.");
             Console.ReadLine();
         }
     }

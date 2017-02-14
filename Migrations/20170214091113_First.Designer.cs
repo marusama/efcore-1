@@ -5,16 +5,15 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using CoreEF1;
 
-namespace CoreEF1.Migrations
+namespace efcore1.Migrations
 {
     [DbContext(typeof(BloggingContext))]
-    [Migration("20170213231022_MyFirstMigration")]
-    partial class MyFirstMigration
+    [Migration("20170214091113_First")]
+    partial class First
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
                 .HasAnnotation("ProductVersion", "1.1.0-rtm-22752");
 
             modelBuilder.Entity("CoreEF1.Blog", b =>
