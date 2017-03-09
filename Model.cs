@@ -13,9 +13,9 @@ namespace CoreEF1
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseNpgsql("Server=127.0.0.1;User ID=user1;Password=user1;Database=db2;Encoding=UTF-8");
+            optionsBuilder.UseNpgsql("Server=127.0.0.1;User ID=user1;Password=user1;Database=db2;Encoding=UTF-8");
             //optionsBuilder.UseSqlite("Filename=./Blogging.db");
-            optionsBuilder.UseMySql("Server=127.0.0.1;Port=13306;Database=efcore1;Uid=lazada;Pwd=rock4me;");
+            //optionsBuilder.UseMySql("Server=127.0.0.1;Port=13306;Database=efcore1;Uid=lazada;Pwd=rock4me;");
         }
     }
 

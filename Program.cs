@@ -19,17 +19,12 @@ namespace CoreEF1
             {
                 if (db.Blogs.Count() == 0)
                 {
-                    db.Blogs.Add(new Blog { Url = "www.google.com" });
+                    db.Blogs.Add(new Blog { Url = "www.google.com", Posts = new List<Post>{
+                        new Post() { Title = "post 1", Content = "qwe asd zxc" }
+                    } });
                     db.Blogs.Add(new Blog { Url = "www.yandex.ru" });
                     var count = db.SaveChanges();
                     Console.WriteLine("{0} records saved to database", count);
-                }
-
-                var b1 = db.Blogs.Include(b => b.Posts).Single(b => b.Url == "www.google.com");
-                if (b1.Posts.Count() == 0)
-                {
-                    b1.Posts.Add(new Post() { Title = "post 1", Content = "qwe asd zxc" });
-                    db.SaveChanges();
                 }
 
                 Console.WriteLine();
@@ -71,6 +66,15 @@ namespace CoreEF1
 
             Console.WriteLine("Done.");
             Console.ReadLine();
+
+            var z = Test();
+            Console.WriteLine(z.a);
+        }
+
+        public static (int a, int b) Test()
+        {
+            var r = (1, 2);
+            return r;
         }
     }
 }
