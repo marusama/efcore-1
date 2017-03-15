@@ -8,13 +8,14 @@ using CoreEF1;
 namespace efcore1.Migrations
 {
     [DbContext(typeof(BloggingContext))]
-    [Migration("20170214091113_First")]
-    partial class First
+    [Migration("20170315100622_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.1.0-rtm-22752");
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
+                .HasAnnotation("ProductVersion", "1.1.1");
 
             modelBuilder.Entity("CoreEF1.Blog", b =>
                 {
